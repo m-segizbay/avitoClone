@@ -4,11 +4,17 @@
     <title>BUYSELL</title>
 </head>
 <body>
-    <h1>BUYSELL</h1><br>
+<h1>BUYSELL</h1><br>
+<form method="post" action="/">
+    Поиск по названию объявления: <input type="text" name="title"><br>
+    <input type="submit" value="Поиск">
+</form>
 <#list products as product>
     <div>
-        <p><b>${product.title}</b>${product.price} тг. | <a href="/product/${product.id}">Подробнее...</a> </p>
+        <p><b>${product.title}  </b  ${product.price} тг. | <a href="/product/${product.id}">Подробнее...</a> </p>
     </div>
+    <#else>
+    <h3>Товаров нет</h3>
 </#list>
 <hr>
 <h3>Создать новый товара</h3>

@@ -1,38 +1,39 @@
 package kz.segizbay.buysell.Services;
 
+import kz.segizbay.buysell.ProductRepository;
 import kz.segizbay.buysell.models.Product;
+import lombok.AllArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class ProductService {
+    private static final Logger log = LoggerFactory.getLogger(ProductService.class);
+    private final ProductRepository productRepository;
+
     private List<Product> products = new ArrayList<Product>();
-    private Long ID = 0l;
 
-    {
-        products.add(new Product( ++ID,"PlayStation 5", "Simple", 250_000, "Almaty", "Thomas"));
-        products.add(new Product(++ID, "Iphone 11", "Simple", 150_000, "Almaty", "John"));
-    }
-
-    public List<Product> getProducts() {
-        return products;
+    public List<Product> getProducts(String title) {
+        if (title != null) return productRepository.findByTitle(title);
+        return productRepository.findAll();
     }
 
     public void saveProduct(Product product) {
-        products.add(product);
-        product.setId(ID++);
+        log.info("Saving product: {}" + product);
+        productRepository.save(product);
     }
 
     public void deleteProduct(Long id) {
-        products.removeIf(product -> product.getId().equals(id));
+        log.info("Deleting product: {}", id);
+        productRepository.deleteById(id);
     }
 
     public Product getProductById(Long id) {
-        return products.stream()
-                .filter(product -> product.getId().equals(id))
-                .findFirst()
-                .get();
+        return productRepository.findById(id).orElse(null);
     }
 }
