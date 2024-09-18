@@ -1,4 +1,4 @@
-package kz.segizbay.buysell;
+package kz.segizbay.buysell.repositories;
 
 import kz.segizbay.buysell.models.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
