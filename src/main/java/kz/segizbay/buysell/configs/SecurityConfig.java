@@ -22,7 +22,7 @@ public class SecurityConfig{
         http
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/", "/product/**", "/iamges/**", "/registration", "/login").permitAll()
+                                .requestMatchers("/", "/product/**", "/images/**", "/registration", "/login").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .formLogin(formLogin ->
@@ -30,7 +30,7 @@ public class SecurityConfig{
                                 .loginPage("/login")
                                 .loginProcessingUrl("/process_login")
                                 .defaultSuccessUrl("/", true)
-                                .failureUrl("/auth/login?error")
+                                .failureUrl("/login?error")
                 )
                 .logout(logout ->
                         logout
